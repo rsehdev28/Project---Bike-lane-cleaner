@@ -8,9 +8,20 @@ def canny(image):
     canny = cv2.Canny(blur,50,150) # Detection of Sharp edges/ strong gradient of pixels in the image
     return canny
 
-
+def region_of_interest(image):  # Identifies the region of interest by isolating the edge lines based on coordinates and using a mask
+    height = image.shape[0]
+    polygons = np.array([[(475,height),(600,height),(500,75)]])
+    mask = np.zeros_like(image)
+    cv2.fillPoly(mask,polygons,255)
+    masked_image = cv2.bitwise_and(image,mask)
+    return masked_image
 image = cv2.imread('test_image4.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
 lane_image = np.copy(image) #copies the image array into another variable for greyscaling
 canny = canny(lane_image)
-plt.imshow(canny) # renders the image and shows it with a window name
-plt.show()# Displays the image
+#cv2.imshow("Result",canny)
+#cv2.waitKey(0)
+#plt.imshow(canny) # renders the image and shows it with a window name
+#plt.show() # Displays the image
+cv2.imshow("result",region_of_interest(canny))
+cv2.waitKey(0)
+
