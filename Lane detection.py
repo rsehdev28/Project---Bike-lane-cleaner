@@ -12,5 +12,5 @@ def canny(image):
 image = cv2.imread('test_image4.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
 lane_image = np.copy(image) #copies the image array into another variable for greyscaling
 canny = canny(lane_image)
-plt.imshow(canny) # renders the image and shows it wit a window name
+plt.imshow(canny) # renders the image and shows it with a window name
 plt.show()# Displays the image
