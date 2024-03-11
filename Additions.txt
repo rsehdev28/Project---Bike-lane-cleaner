@@ -1,3 +1,6 @@
 Move the images and test videos to a seperate folder and load it from there
 Seperate files for object detection(suersonic sensors or integrate it with the camera), traffic lights detection (Lidar sensor maybe)
 Will also have to think of a way to make the program work with the detection of only one edge as we are dealing with the bake lane.(maybe work with gutter as edges)
+
+Add perspective transform 
+Also add for robot to move with lane following
