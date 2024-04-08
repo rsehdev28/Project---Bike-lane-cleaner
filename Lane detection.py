@@ -51,22 +51,38 @@ def region_of_interest(image):  # Identifies the region of interest by isolating
     masked_image = cv2.bitwise_and(image,mask)
     return masked_image
 
-image = cv2.imread('test_image4.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
+image = cv2.imread('test_image.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
 lane_image = np.copy(image) #copies the image array into another variable for greyscaling
 canny_image = canny(lane_image)
 
-#cv2.imshow("Result",canny) renders the image and shows it with a window name
-#cv2.waitKey(0)  Displays the image
-#plt.imshow(canny) Displays the image with a graph having x and y axes 
+#cv2.imshow("Result",canny) #renders the image and shows it with a window name
+#cv2.waitKey(0)  #Displays the image
+#plt.imshow(canny_image) #Displays the image with a graph having x and y axes 
 #plt.show() 
 
-cropped_image = region_of_interest(canny_image)
+'''cropped_image = region_of_interest(canny_image)
 lines = cv2.HoughLinesP(cropped_image,2,np.pi/180,100,np.array([]),minLineLength=40,maxLineGap=5) # To find the lines that best define our edges
 averaged_lines = average_slope_intercept(lane_image,lines)
 line_image = display_lines(lane_image,averaged_lines)
-combo_image = cv2.addWeighted(lane_image,0.6,line_image,2,2)
+combo_image = cv2.addWeighted(lane_image,0.6,line_image,2,2)'''
 
 #cv2.imshow("result",line_image)
 #cv2.waitKey(0)
-cv2.imshow("result",combo_image)
-cv2.waitKey(0)
+#cv2.imshow("result",combo_image)
+#cv2.waitKey(0)
+
+cap = cv2.VideoCapture("test2.mp4") # Object to capture the video
+while(cap.isOpened()):
+    _, frame = cap.read() # To decode every video frame
+    canny_image = canny(frame)
+    cropped_image = region_of_interest(canny_image)
+    lines = cv2.HoughLinesP(cropped_image,2,np.pi/180,100,np.array([]),minLineLength=40,maxLineGap=5) # To find the lines that best define our edges
+    averaged_lines = average_slope_intercept(frame,lines)
+    line_image = display_lines(frame,averaged_lines)
+    combo_image = cv2.addWeighted(frame,0.6,line_image,2,2)
+    cv2.imshow("result",combo_image)
+    if cv2.waitKey(1) & 0xFF == ord('w'):
+        break
+
+cv2.release()
+cv2.destroyAllWindows()

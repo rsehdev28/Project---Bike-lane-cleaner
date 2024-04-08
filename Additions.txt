@@ -4,3 +4,7 @@ Will also have to think of a way to make the program work with the detection of 
 
 Add perspective transform 
 Also add for robot to move with lane following
+For now just work on adding an input for video intake. The next part would be replacing the sample video with a video that uses bike lane and then change the values accordingly.
+Test with online footage first. 
+Try automating the process of finding the region of interest. or finalize the particular values.
+Try the different approach as well.
