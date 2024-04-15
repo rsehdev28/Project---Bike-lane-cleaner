@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def canny(image):
     gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)#changes the image into a grayscale image
     blur = cv2.GaussianBlur(gray,(5,5),0) # applies gaussian blur and removes noise and extra stuff sto prevent problems with edge detection
-    canny = cv2.Canny(blur,20,100) # Detection of Sharp edges/ strong gradient of pixels in the image, basically sharp change in color
+    canny = cv2.Canny(blur,50,150) # Detection of Sharp edges/ strong gradient of pixels in the image, basically sharp change in color
     return canny
 
 def make_coordinates(image, line_parameters):
@@ -51,7 +51,7 @@ def region_of_interest(image):  # Identifies the region of interest by isolating
     masked_image = cv2.bitwise_and(image,mask)
     return masked_image
 
-image = cv2.imread('test_image.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
+image = cv2.imread('test_image1.jpg') # Reads the image in the folder and returns it as multidimensional arrays containing intensities of each pixel. Try playing with by changing images.
 lane_image = np.copy(image) #copies the image array into another variable for greyscaling
 canny_image = canny(lane_image)
 
