@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def canny(image):
     gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)#changes the image into a grayscale image
     blur = cv2.GaussianBlur(gray,(5,5),0) # applies gaussian blur and removes noise and extra stuff sto prevent problems with edge detection
-    canny = cv2.Canny(blur,50,150) # Detection of Sharp edges/ strong gradient of pixels in the image
+    canny = cv2.Canny(blur,20,100) # Detection of Sharp edges/ strong gradient of pixels in the image, basically sharp change in color
     return canny
 
 def make_coordinates(image, line_parameters):
@@ -45,7 +45,7 @@ def average_slope_intercept(image,lines):
 
 def region_of_interest(image):  # Identifies the region of interest by isolating the edge lines based on coordinates and using a mask
     height = image.shape[0]
-    polygons = np.array([[(475,height),(600,height),(500,75)]])
+    polygons = np.array([[(200,height),(1100,height),(550,220)]])
     mask = np.zeros_like(image)
     cv2.fillPoly(mask,polygons,255)
     masked_image = cv2.bitwise_and(image,mask)
@@ -57,21 +57,21 @@ canny_image = canny(lane_image)
 
 #cv2.imshow("Result",canny) #renders the image and shows it with a window name
 #cv2.waitKey(0)  #Displays the image
-#plt.imshow(canny_image) #Displays the image with a graph having x and y axes 
-#plt.show() 
+plt.imshow(canny_image) #Displays the image with a graph having x and y axes 
+plt.show() 
 
-'''cropped_image = region_of_interest(canny_image)
+cropped_image = region_of_interest(canny_image)
 lines = cv2.HoughLinesP(cropped_image,2,np.pi/180,100,np.array([]),minLineLength=40,maxLineGap=5) # To find the lines that best define our edges
 averaged_lines = average_slope_intercept(lane_image,lines)
 line_image = display_lines(lane_image,averaged_lines)
-combo_image = cv2.addWeighted(lane_image,0.6,line_image,2,2)'''
+combo_image = cv2.addWeighted(lane_image,0.6,line_image,2,2)
 
-#cv2.imshow("result",line_image)
-#cv2.waitKey(0)
-#cv2.imshow("result",combo_image)
-#cv2.waitKey(0)
+cv2.imshow("result",line_image)
+cv2.waitKey(0)
+cv2.imshow("result",combo_image)
+cv2.waitKey(0)
 
-cap = cv2.VideoCapture("test2.mp4") # Object to capture the video
+'''cap = cv2.VideoCapture("test2.mp4") # Object to capture the video
 while(cap.isOpened()):
     _, frame = cap.read() # To decode every video frame
     canny_image = canny(frame)
@@ -85,4 +85,4 @@ while(cap.isOpened()):
         break
 
 cv2.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows()'''
