@@ -3,15 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def canny(image):
-    gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)#changes the image into a grayscale image
+    gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY) # changes the image into a grayscale image
     blur = cv2.GaussianBlur(gray,(5,5),0) # applies gaussian blur and removes noise and extra stuff sto prevent problems with edge detection
     canny = cv2.Canny(blur,50,150) # Detection of Sharp edges/ strong gradient of pixels in the image, basically sharp change in color
     return canny
+
 
 def make_coordinates(image, line_parameters):
     slope,intercept = line_parameters
     y1 = image.shape[0]
     y2 = int(y1*(3/5))
+    # y3 = int(y2*(3/5))
     x1 = int((y1-intercept)/slope)
     x2 = int((y2-intercept)/slope)
     return np.array([x1,y1,x2,y2])
